@@ -1,0 +1,259 @@
+@prefix : <http://rbccps.org/schemas/streetlight#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://rbccps.org/schemas/streetlight> .
+
+<http://rbccps.org/schemas/streetlight> rdf:type owl:Ontology ;
+                                         owl:imports <http://www.w3.org/2003/01/geo/wgs84_pos> ,
+                                                     <http://purl.oclc.org/NET/muo/ucum/> ,
+                                                     <http://www.onem2m.org/ontology/Base_Ontology/base_ontology-v0_9_0> .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#RESTMethod
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#RESTMethod> rdf:type rdfs:Datatype ;
+                                                                                     owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                                                                           owl:oneOf [ rdf:type rdf:List ;
+                                                                                                                       rdf:first "GET" ;
+                                                                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                  rdf:first "POST" ;
+                                                                                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                             rdf:first "PUSH" ;
+                                                                                                                                             rdf:rest rdf:nil
+                                                                                                                                           ]
+                                                                                                                                ]
+                                                                                                                     ]
+                                                                                                         ] .
+
+
+###  http://www.wsmo.org/ns/hrests#URITemplate
+<http://www.wsmo.org/ns/hrests#URITemplate> rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#associatedPhysicalQuality
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#associatedPhysicalQuality> rdf:type owl:ObjectProperty ;
+                                                                                                    rdfs:domain <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                                    rdfs:range <http://purl.oclc.org/NET/muo/muo#PhysicalQuality> .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#consistsOfObsMetaData
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#consistsOfObsMetaData> rdf:type owl:ObjectProperty ;
+                                                                                                rdfs:domain <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                                rdfs:range <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasInputMessage
+<http://www.wsmo.org/ns/wsmo-lite#hasInputMessage> rdf:type owl:ObjectProperty ;
+                                                   rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                                   rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Message> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasOperation
+<http://www.wsmo.org/ns/wsmo-lite#hasOperation> rdf:type owl:ObjectProperty ;
+                                                rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Service> ;
+                                                rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Operation> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasOutputMessage
+<http://www.wsmo.org/ns/wsmo-lite#hasOutputMessage> rdf:type owl:ObjectProperty ;
+                                                    rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                                    rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Message> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessEndPoint
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessEndPoint> rdf:type owl:DatatypeProperty ;
+                                                                                             rdfs:subPropertyOf <http://www.wsmo.org/ns/hrests#hasAddress> ;
+                                                                                             rdfs:domain <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessOperation> ;
+                                                                                             rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessMethod
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessMethod> rdf:type owl:DatatypeProperty ;
+                                                                                           rdfs:subPropertyOf <http://www.wsmo.org/ns/hrests#hasMethod> ;
+                                                                                           rdfs:domain <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessOperation> ;
+                                                                                           rdfs:range <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#RESTMethod> .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#hasSenMLTag
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#hasSenMLTag> rdf:type owl:DatatypeProperty ;
+                                                                                      rdfs:domain <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                      rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#location
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#location> rdf:type owl:DatatypeProperty ;
+                                                                                   owl:equivalentProperty <http://www.w3.org/2003/01/geo/wgs84_pos#lat_long> ;
+                                                                                   rdfs:comment "Streetlight's location represented as a Geo point"^^xsd:string .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#streetlightid
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#streetlightid> rdf:type owl:DatatypeProperty ;
+                                                                                        rdfs:domain <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#Streetlight> ;
+                                                                                        rdfs:range xsd:string ;
+                                                                                        rdfs:comment "Entity's unique identifier."^^xsd:string ;
+                                                                                        rdfs:label "id"^^xsd:string .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#lat_long
+<http://www.w3.org/2003/01/geo/wgs84_pos#lat_long> rdfs:range xsd:string .
+
+
+###  http://www.wsmo.org/ns/hrests#hasAddress
+<http://www.wsmo.org/ns/hrests#hasAddress> rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                           rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://www.wsmo.org/ns/hrests#hasMethod
+<http://www.wsmo.org/ns/hrests#hasMethod> rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                          rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.oclc.org/NET/muo/muo#PhysicalQuality
+<http://purl.oclc.org/NET/muo/muo#PhysicalQuality> rdfs:subClassOf <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#Aspect> .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccess
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccess> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#Service> ,
+                                                                                                     [ rdf:type owl:Restriction ;
+                                                                                                       owl:onProperty <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#hasOperation> ;
+                                                                                                       owl:allValuesFrom <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessOperation>
+                                                                                                     ] .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessOperation
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccessOperation> rdf:type owl:Class ;
+                                                                                              rdfs:subClassOf <http://www.wsmo.org/ns/wsmo-lite#Operation> .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> rdf:type owl:Class ;
+                                                                                           rdfs:subClassOf <http://purl.oclc.org/NET/muo/muo#QualityValue> ,
+                                                                                                           <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#MetaData> ,
+                                                                                                           [ rdf:type owl:Restriction ;
+                                                                                                             owl:onProperty <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#consistsOfObsMetaData> ;
+                                                                                                             owl:allValuesFrom <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData>
+                                                                                                           ] ,
+                                                                                                           [ rdf:type owl:Restriction ;
+                                                                                                             owl:onProperty <http://purl.oclc.org/NET/muo/muo#measuredIn> ;
+                                                                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                                             owl:onClass <http://purl.oclc.org/NET/muo/muo#UnitOfMeasurement>
+                                                                                                           ] ,
+                                                                                                           [ rdf:type owl:Restriction ;
+                                                                                                             owl:onProperty <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#refersTo> ;
+                                                                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                                             owl:onClass <http://purl.oclc.org/NET/muo/muo#PhysicalQuality>
+                                                                                                           ] .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#Streetlight
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#Streetlight> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#Device> ,
+                                                                                                      <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> ,
+                                                                                                      [ rdf:type owl:Restriction ;
+                                                                                                        owl:onProperty <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#hasService> ;
+                                                                                                        owl:someValuesFrom <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#DataAccess>
+                                                                                                      ] .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#TemperatureSensing
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#TemperatureSensing> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#MeasuringFunctionality> ,
+                                                                                                             [ rdf:type owl:Restriction ;
+                                                                                                               owl:onProperty <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#refersTo> ;
+                                                                                                               owl:hasValue <http://purl.oclc.org/NET/muo/ucum/physical-quality/temperature>
+                                                                                                             ] .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#Message
+<http://www.wsmo.org/ns/wsmo-lite#Message> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#Variable> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#Operation
+<http://www.wsmo.org/ns/wsmo-lite#Operation> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#Operation> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#Service
+<http://www.wsmo.org/ns/wsmo-lite#Service> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#Service> .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_current_meta_data
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_current_meta_data> rdf:type owl:NamedIndividual ,
+                                                                                                        <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                               <http://purl.oclc.org/NET/muo/muo#measuredIn> <http://purl.oclc.org/NET/muo/ucum/unit/electric-current/Ampere> ;
+                                                                                               <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#refersTo> <http://purl.oclc.org/NET/muo/ucum/physical-quality/electric-current> ;
+                                                                                               <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#hasSenMLTag> "current"^^xsd:string .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_energy_meta_data
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_energy_meta_data> rdf:type owl:NamedIndividual ,
+                                                                                                       <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                              <http://purl.oclc.org/NET/muo/muo#measuredIn> <http://purl.oclc.org/NET/muo/ucum/unit/energy/Joule> ;
+                                                                                              <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#refersTo> <http://purl.oclc.org/NET/muo/ucum/physical-quality/energy> ;
+                                                                                              <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#hasSenMLTag> "energy"^^xsd:string .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_lux_meta_data
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_lux_meta_data> rdf:type owl:NamedIndividual ,
+                                                                                                    <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                           <http://purl.oclc.org/NET/muo/muo#measuredIn> <http://purl.oclc.org/NET/muo/ucum/unit/illuminance/lux> ;
+                                                                                           <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#refersTo> <http://purl.oclc.org/NET/muo/ucum/physical-quality/luminous-intensity> ;
+                                                                                           <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#hasSenMLTag> "lux"^^xsd:string .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_meta_data
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_meta_data> rdf:type owl:NamedIndividual ,
+                                                                                                <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                       <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#consistsOfObsMetaData> <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_current_meta_data> ,
+                                                                                                                                                                                       <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_lux_meta_data> ,
+                                                                                                                                                                                       <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_temp_meta_data> ,
+                                                                                                                                                                                       <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_voltage_meta_data> .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_temp_meta_data
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_temp_meta_data> rdf:type owl:NamedIndividual ,
+                                                                                                     <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                            <http://purl.oclc.org/NET/muo/muo#measuredIn> <http://purl.oclc.org/NET/muo/ucum/unit/temperature/degree-Celsius> ;
+                                                                                            <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#refersTo> <http://purl.oclc.org/NET/muo/ucum/physical-quality/temperature> ;
+                                                                                            <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#hasSenMLTag> "temperature"^^xsd:string .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_voltage_meta_data
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SL_voltage_meta_data> rdf:type owl:NamedIndividual ,
+                                                                                                        <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#SenMLObsMetaData> ;
+                                                                                               <http://purl.oclc.org/NET/muo/muo#measuredIn> <http://purl.oclc.org/NET/muo/ucum/unit/electric-potential/Volt> ;
+                                                                                               <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#refersTo> <http://purl.oclc.org/NET/muo/ucum/physical-quality/electric-potential> ;
+                                                                                               <http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#hasSenMLTag> "voltage"^^xsd:string .
+
+
+###  http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#temp_deg_cel
+<http://www.semanticweb.org/abhay/ontologies/2017/3/untitled-ontology-41#temp_deg_cel> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

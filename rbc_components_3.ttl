@@ -1,0 +1,577 @@
+@prefix : <http://rbccps.org/schemas/streetlight#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix muoq: <http://purl.oclc.org/NET/muo/ucum/physical-quality/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix onem2m: <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#> .
+@prefix rbccps: <http://rbccps.org/schemas/streetlight#> .
+@prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@base <http://rbccps.org/schemas/streetlight> .
+
+<http://rbccps.org/schemas/streetlight> rdf:type owl:Ontology ;
+                                         owl:imports <http://www.w3.org/2003/01/geo/wgs84_pos> ,
+                                                     <http://purl.oclc.org/NET/muo/ucum/> ,
+                                                     <http://www.onem2m.org/ontology/Base_Ontology/base_ontology-v0_9_0> .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://purl.oclc.org/NET/muo/muo#UnitOfMeasurement
+muo:UnitOfMeasurement rdf:type rdfs:Datatype .
+
+
+###  http://rbccps.org/schemas/streetlight#RESTMethod
+rbccps:RESTMethod rdf:type rdfs:Datatype ;
+                  owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                        owl:oneOf [ rdf:type rdf:List ;
+                                                    rdf:first "GET" ;
+                                                    rdf:rest [ rdf:type rdf:List ;
+                                                               rdf:first "POST" ;
+                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                          rdf:first "PUSH" ;
+                                                                          rdf:rest rdf:nil
+                                                                        ]
+                                                             ]
+                                                  ]
+                                      ] .
+
+
+###  http://rbccps.org/schemas/streetlight#StreetLightPowerStateEnum
+rbccps:StreetLightPowerStateEnum rdf:type rdfs:Datatype ;
+                                 owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                       owl:oneOf [ rdf:type rdf:List ;
+                                                                   rdf:first "BOOTINGUP" ;
+                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                              rdf:first "OFF" ;
+                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                         rdf:first "ON" ;
+                                                                                         rdf:rest rdf:nil
+                                                                                       ]
+                                                                            ]
+                                                                 ]
+                                                     ] .
+
+
+###  http://rbccps.org/schemas/streetlight#accessModifierTypes
+rbccps:accessModifierTypes rdf:type rdfs:Datatype ;
+                           owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                 owl:oneOf [ rdf:type rdf:List ;
+                                                             rdf:first "PRIVATE" ;
+                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                        rdf:first "PROTECTED" ;
+                                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                                   rdf:first "PUBLIC" ;
+                                                                                   rdf:rest rdf:nil
+                                                                                 ]
+                                                                      ]
+                                                           ]
+                                               ] .
+
+
+###  http://www.wsmo.org/ns/hrests#URITemplate
+<http://www.wsmo.org/ns/hrests#URITemplate> rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://rbccps.org/schemas/streetlight#hasParameters
+rbccps:hasParameters rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdfs:domain onem2m:Device ;
+                     rdfs:range rbccps:DeviceParameters .
+
+
+###  http://rbccps.org/schemas/streetlight#hasgeoLocation
+rbccps:hasgeoLocation rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf onem2m:hasThingProperty ;
+                      rdfs:domain onem2m:Device ;
+                      rdfs:range rbccps:geoLocation .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasInputMessage
+<http://www.wsmo.org/ns/wsmo-lite#hasInputMessage> rdf:type owl:ObjectProperty ;
+                                                   rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                                   rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Message> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasOperation
+<http://www.wsmo.org/ns/wsmo-lite#hasOperation> rdf:type owl:ObjectProperty ;
+                                                rdfs:subPropertyOf onem2m:hasOperation ;
+                                                rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Operation> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasOutputMessage
+<http://www.wsmo.org/ns/wsmo-lite#hasOutputMessage> rdf:type owl:ObjectProperty ;
+                                                    rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                                    rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Message> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://rbccps.org/schemas/streetlight#MessageBody
+rbccps:MessageBody rdf:type owl:DatatypeProperty ;
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( onem2m:InputDataPoint
+                                               onem2m:OperationInput
+                                               <http://www.wsmo.org/ns/wsmo-lite#Message>
+                                             )
+                               ] ;
+                   rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#MessageHeader
+rbccps:MessageHeader rdf:type owl:DatatypeProperty ;
+                     rdfs:domain [ rdf:type owl:Class ;
+                                   owl:unionOf ( onem2m:InputDataPoint
+                                                 onem2m:OperationInput
+                                                 <http://www.wsmo.org/ns/wsmo-lite#Message>
+                                               )
+                                 ] ;
+                     rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#accessModifier
+rbccps:accessModifier rdf:type owl:DatatypeProperty ;
+                      rdfs:domain rbccps:DeviceParameters ;
+                      rdfs:range rbccps:accessModifierTypes .
+
+
+###  http://rbccps.org/schemas/streetlight#address
+rbccps:address rdf:type owl:DatatypeProperty ;
+               rdfs:domain rbccps:geoLocation ;
+               rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#deviceDomain
+rbccps:deviceDomain rdf:type owl:DatatypeProperty ;
+                    rdfs:domain onem2m:Device ;
+                    rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#deviceGatewayHostID
+rbccps:deviceGatewayHostID rdf:type owl:DatatypeProperty ;
+                           rdfs:domain onem2m:Device ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "Host ID (unique ID) for the gateway to which the device is attached" .
+
+
+###  http://rbccps.org/schemas/streetlight#deviceOwner
+rbccps:deviceOwner rdf:type owl:DatatypeProperty ;
+                   rdfs:domain onem2m:Device ;
+                   rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#deviceProvider
+rbccps:deviceProvider rdf:type owl:DatatypeProperty ;
+                      rdfs:domain onem2m:Device ;
+                      rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#id
+rbccps:id rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain onem2m:Device ;
+          rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#mapid
+rbccps:mapid rdf:type owl:DatatypeProperty ;
+             rdfs:domain rbccps:geoLocation ;
+             rdfs:range xsd:string ;
+             rdfs:comment "ID for Mapunity map id associated with a given geoLocation object" .
+
+
+###  http://rbccps.org/schemas/streetlight#paramDataRange
+rbccps:paramDataRange rdf:type owl:DatatypeProperty ;
+                      rdfs:domain rbccps:DeviceParameters ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "Describes the possible values the parameter can take. For integeters, double and float variables it includes a min-value and max-value separated by commas. Whereas for ENUM/BOOLEAN variables it can encode the various ENUM values (e.g., {\"ON\",\"OFF\"}, {\"TRUE\", \"FALSE\"} or {\"START\", \"STOP\", \"RESET\"} etc.)" .
+
+
+###  http://rbccps.org/schemas/streetlight#paramDataType
+rbccps:paramDataType rdf:type owl:DatatypeProperty ;
+                     rdfs:domain rbccps:DeviceParameters .
+
+
+###  http://rbccps.org/schemas/streetlight#readEndPoint
+rbccps:readEndPoint rdf:type owl:DatatypeProperty ;
+                    rdfs:domain rbccps:DeviceParameters ;
+                    rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://rbccps.org/schemas/streetlight#subscriptionEndPoint
+rbccps:subscriptionEndPoint rdf:type owl:DatatypeProperty ;
+                            rdfs:domain rbccps:DeviceParameters ;
+                            rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://rbccps.org/schemas/streetlight#type
+rbccps:type rdf:type owl:DatatypeProperty ;
+            rdfs:domain onem2m:Device ;
+            rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#units
+rbccps:units rdf:type owl:DatatypeProperty ;
+             rdfs:domain rbccps:DeviceParameters ;
+             rdfs:range muo:UnitOfMeasurement .
+
+
+###  http://rbccps.org/schemas/streetlight#updateEndPoint
+rbccps:updateEndPoint rdf:type owl:DatatypeProperty ;
+                      rdfs:domain rbccps:DeviceParameters ;
+                      rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#lat_long
+wgs84_pos:lat_long rdfs:range xsd:string .
+
+
+###  http://www.wsmo.org/ns/hrests#hasMethod
+<http://www.wsmo.org/ns/hrests#hasMethod> rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                          rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.oclc.org/NET/muo/muo#PhysicalQuality
+muo:PhysicalQuality rdfs:subClassOf onem2m:Aspect .
+
+
+###  http://rbccps.org/schemas/streetlight#DeviceParameters
+rbccps:DeviceParameters rdf:type owl:Class ;
+                        rdfs:subClassOf onem2m:ThingProperty .
+
+
+###  http://rbccps.org/schemas/streetlight#Streetlight
+rbccps:Streetlight rdf:type owl:Class ;
+                   rdfs:subClassOf onem2m:Device ,
+                                   wgs84_pos:SpatialThing ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:hasParameters ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass rbccps:caseTemperature
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:hasParameters ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass rbccps:energyConsumed
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:hasParameters ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass rbccps:illumincance
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:hasParameters ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass rbccps:targetIlluminanceLevel
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:hasParameters ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass rbccps:targetPowerState
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:hasParameters ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass rbccps:targetSamplingRate
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:hasgeoLocation ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass rbccps:geoLocation
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:type ;
+                                     owl:hasValue "streetlight"
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:deviceDomain ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:deviceGatewayHostID ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:deviceOwner ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:deviceProvider ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:id ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty wgs84_pos:lat_long ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] .
+
+
+###  http://rbccps.org/schemas/streetlight#caseTemperature
+rbccps:caseTemperature rdf:type owl:Class ;
+                       rdfs:subClassOf rbccps:healthParameters ,
+                                       onem2m:OutputDataPoint ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty onem2m:describes ;
+                                         owl:hasValue muoq:temperature
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rbccps:readEndPoint ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rbccps:subscriptionEndPoint ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rbccps:units ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onDataRange muo:UnitOfMeasurement
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rbccps:accessModifier ;
+                                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onDataRange rbccps:accessModifierTypes
+                                       ] .
+
+
+###  http://rbccps.org/schemas/streetlight#configParameters
+rbccps:configParameters rdf:type owl:Class ;
+                        rdfs:subClassOf rbccps:DeviceParameters .
+
+
+###  http://rbccps.org/schemas/streetlight#energyConsumed
+rbccps:energyConsumed rdf:type owl:Class ;
+                      rdfs:subClassOf rbccps:operationalParameters ,
+                                      onem2m:OutputDataPoint ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty onem2m:describes ;
+                                        owl:hasValue muoq:energy
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty rbccps:readEndPoint ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty rbccps:subscriptionEndPoint ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty rbccps:units ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onDataRange muo:UnitOfMeasurement
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty rbccps:accessModifier ;
+                                        owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onDataRange rbccps:accessModifierTypes
+                                      ] .
+
+
+###  http://rbccps.org/schemas/streetlight#geoLocation
+rbccps:geoLocation rdf:type owl:Class ;
+                   rdfs:subClassOf onem2m:ThingProperty ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:address ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rbccps:mapid ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] .
+
+
+###  http://rbccps.org/schemas/streetlight#healthParameters
+rbccps:healthParameters rdf:type owl:Class ;
+                        rdfs:subClassOf rbccps:DeviceParameters .
+
+
+###  http://rbccps.org/schemas/streetlight#illumincance
+rbccps:illumincance rdf:type owl:Class ;
+                    rdfs:subClassOf rbccps:operationalParameters ,
+                                    onem2m:OutputDataPoint ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty onem2m:describes ;
+                                      owl:hasValue muoq:luminous-intensity
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty rbccps:readEndPoint ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty rbccps:subscriptionEndPoint ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty rbccps:units ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onDataRange muo:UnitOfMeasurement
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty rbccps:accessModifier ;
+                                      owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onDataRange rbccps:accessModifierTypes
+                                    ] .
+
+
+###  http://rbccps.org/schemas/streetlight#operationalParameters
+rbccps:operationalParameters rdf:type owl:Class ;
+                             rdfs:subClassOf rbccps:DeviceParameters .
+
+
+###  http://rbccps.org/schemas/streetlight#targetIlluminanceLevel
+rbccps:targetIlluminanceLevel rdf:type owl:Class ;
+                              rdfs:subClassOf rbccps:operationalParameters ,
+                                              onem2m:InputDataPoint ,
+                                              onem2m:OutputDataPoint ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty rbccps:paramDataRange ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onDataRange xsd:string
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty rbccps:paramDataType ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onDataRange xsd:string
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty rbccps:readEndPoint ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty rbccps:subscriptionEndPoint ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty rbccps:updateEndPoint ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty rbccps:accessModifier ;
+                                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onDataRange rbccps:accessModifierTypes
+                                              ] .
+
+
+###  http://rbccps.org/schemas/streetlight#targetPowerState
+rbccps:targetPowerState rdf:type owl:Class ;
+                        rdfs:subClassOf rbccps:operationalParameters ,
+                                        onem2m:InputDataPoint ,
+                                        onem2m:OutputDataPoint ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rbccps:paramDataRange ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange xsd:string
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rbccps:paramDataType ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange xsd:string
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rbccps:readEndPoint ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rbccps:subscriptionEndPoint ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rbccps:updateEndPoint ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rbccps:accessModifier ;
+                                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange rbccps:accessModifierTypes
+                                        ] .
+
+
+###  http://rbccps.org/schemas/streetlight#targetSamplingRate
+rbccps:targetSamplingRate rdf:type owl:Class ;
+                          rdfs:subClassOf rbccps:configParameters ,
+                                          onem2m:InputDataPoint ,
+                                          onem2m:OutputDataPoint ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rbccps:paramDataRange ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onDataRange xsd:string
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rbccps:paramDataType ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onDataRange xsd:string
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rbccps:readEndPoint ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rbccps:subscriptionEndPoint ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rbccps:units ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onDataRange muo:UnitOfMeasurement
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rbccps:updateEndPoint ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onDataRange <http://www.wsmo.org/ns/hrests#URITemplate>
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rbccps:accessModifier ;
+                                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onDataRange rbccps:accessModifierTypes
+                                          ] .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#Message
+<http://www.wsmo.org/ns/wsmo-lite#Message> rdf:type owl:Class .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#Operation
+<http://www.wsmo.org/ns/wsmo-lite#Operation> rdf:type owl:Class ;
+                                             rdfs:subClassOf onem2m:Operation .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

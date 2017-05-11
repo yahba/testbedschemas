@@ -1,0 +1,650 @@
+@prefix : <http://rbccps.org/schemas/streetlight#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rbc: <http://rbccps.org/schemas/streetlight#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix muoq: <http://purl.oclc.org/NET/muo/ucum/physical-quality/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix onem2m: <http://www.onem2m.org/ontology/Base_Ontology/base_ontology#> .
+@prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@base <http://rbccps.org/schemas/streetlight> .
+
+<http://rbccps.org/schemas/streetlight> rdf:type owl:Ontology ;
+                                         owl:imports <http://www.w3.org/2003/01/geo/wgs84_pos> ,
+                                                     <http://purl.oclc.org/NET/muo/ucum/> ,
+                                                     <http://www.onem2m.org/ontology/Base_Ontology/base_ontology-v0_9_0> .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://rbccps.org/schemas/streetlight#RESTMethod
+rbc:RESTMethod rdf:type rdfs:Datatype ;
+               owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                     owl:oneOf [ rdf:type rdf:List ;
+                                                 rdf:first "GET" ;
+                                                 rdf:rest [ rdf:type rdf:List ;
+                                                            rdf:first "POST" ;
+                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                       rdf:first "PUSH" ;
+                                                                       rdf:rest rdf:nil
+                                                                     ]
+                                                          ]
+                                               ]
+                                   ] .
+
+
+###  http://rbccps.org/schemas/streetlight#StreetLightPowerStateEnum
+rbc:StreetLightPowerStateEnum rdf:type rdfs:Datatype ;
+                              owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                    owl:oneOf [ rdf:type rdf:List ;
+                                                                rdf:first "BOOTINGUP" ;
+                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                           rdf:first "OFF" ;
+                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                      rdf:first "ON" ;
+                                                                                      rdf:rest rdf:nil
+                                                                                    ]
+                                                                         ]
+                                                              ]
+                                                  ] .
+
+
+###  http://www.wsmo.org/ns/hrests#URITemplate
+<http://www.wsmo.org/ns/hrests#URITemplate> rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.oclc.org/NET/muo/muo#measuredIn
+muo:measuredIn owl:equivalentProperty rbc:IlluminanceLevelUnits ,
+                                      rbc:PowerStateUnits ,
+                                      rbc:caseTemperatureUnits ,
+                                      rbc:energyConsumedUnits ,
+                                      rbc:illuminanceUnits .
+
+
+###  http://rbccps.org/schemas/streetlight#AssocPhysicalQuality
+rbc:AssocPhysicalQuality rdf:type owl:ObjectProperty ;
+                         rdfs:domain onem2m:Aspect ;
+                         rdfs:range muo:PhysicalQuality .
+
+
+###  http://rbccps.org/schemas/streetlight#IlluminanceLevelMonitoringRefersTo
+rbc:IlluminanceLevelMonitoringRefersTo rdf:type owl:ObjectProperty ;
+                                       owl:equivalentProperty onem2m:refersTo ;
+                                       rdfs:domain rbc:IlluminanceLevelMonitoring ;
+                                       rdfs:range rbc:IlluminanceLevelAspect .
+
+
+###  http://rbccps.org/schemas/streetlight#IlluminanceLevelUnits
+rbc:IlluminanceLevelUnits rdf:type owl:ObjectProperty ;
+                          rdfs:domain rbc:IlluminanceLevelAspect ;
+                          rdfs:range muo:UnitOfMeasurement .
+
+
+###  http://rbccps.org/schemas/streetlight#PowerStateMonitoringRefersTo
+rbc:PowerStateMonitoringRefersTo rdf:type owl:ObjectProperty ;
+                                 owl:equivalentProperty onem2m:refersTo ;
+                                 rdfs:domain rbc:PowerStateMonitoring ;
+                                 rdfs:range rbc:PowerStateAspect .
+
+
+###  http://rbccps.org/schemas/streetlight#PowerStateUnits
+rbc:PowerStateUnits rdf:type owl:ObjectProperty ;
+                    rdfs:domain rbc:PowerStateAspect ;
+                    rdfs:range muo:UnitOfMeasurement .
+
+
+###  http://rbccps.org/schemas/streetlight#caseTemperatureSensingRefersTo
+rbc:caseTemperatureSensingRefersTo rdf:type owl:ObjectProperty ;
+                                   owl:equivalentProperty onem2m:refersTo ;
+                                   rdfs:domain rbc:caseTemperatureSensing ;
+                                   rdfs:range rbc:caseTemperatureAspect .
+
+
+###  http://rbccps.org/schemas/streetlight#caseTemperatureUnits
+rbc:caseTemperatureUnits rdf:type owl:ObjectProperty ;
+                         rdfs:domain rbc:caseTemperatureAspect ;
+                         rdfs:range muo:UnitOfMeasurement .
+
+
+###  http://rbccps.org/schemas/streetlight#energyConsumedSensingRefersTo
+rbc:energyConsumedSensingRefersTo rdf:type owl:ObjectProperty ;
+                                  owl:equivalentProperty onem2m:refersTo ;
+                                  rdfs:domain rbc:energyConsumedSensing ;
+                                  rdfs:range rbc:energyConsumedAspect .
+
+
+###  http://rbccps.org/schemas/streetlight#energyConsumedUnits
+rbc:energyConsumedUnits rdf:type owl:ObjectProperty ;
+                        rdfs:domain rbc:energyConsumedAspect ;
+                        rdfs:range muo:UnitOfMeasurement .
+
+
+###  http://rbccps.org/schemas/streetlight#hasDataAccessOperation
+rbc:hasDataAccessOperation rdf:type owl:ObjectProperty ;
+                           owl:equivalentProperty <http://www.wsmo.org/ns/wsmo-lite#hasOperation> ;
+                           rdfs:domain rbc:DataAccess ;
+                           rdfs:range rbc:DataAccessOperation .
+
+
+###  http://rbccps.org/schemas/streetlight#hasDataAccessOperationInput
+rbc:hasDataAccessOperationInput rdf:type owl:ObjectProperty ;
+                                owl:equivalentProperty onem2m:hasInput ;
+                                rdfs:domain rbc:DataAccessOperation ;
+                                rdfs:range rbc:DataAccessOperationInput .
+
+
+###  http://rbccps.org/schemas/streetlight#hasDataAccessService
+rbc:hasDataAccessService rdf:type owl:ObjectProperty ;
+                         owl:equivalentProperty onem2m:hasService ;
+                         rdfs:domain rbc:Streetlight ;
+                         rdfs:range rbc:DataAccess .
+
+
+###  http://rbccps.org/schemas/streetlight#hasDataSubscribeService
+rbc:hasDataSubscribeService rdf:type owl:ObjectProperty ;
+                            owl:equivalentProperty onem2m:hasService ;
+                            rdfs:domain rbc:Streetlight ;
+                            rdfs:range rbc:DataSubscribe .
+
+
+###  http://rbccps.org/schemas/streetlight#hasPowerStateMonitoring
+rbc:hasPowerStateMonitoring rdf:type owl:ObjectProperty ;
+                            owl:equivalentProperty onem2m:hasFunctionality ;
+                            rdfs:domain rbc:Streetlight ;
+                            rdfs:range rbc:PowerStateMonitoring .
+
+
+###  http://rbccps.org/schemas/streetlight#hasSetIlluminanceLevelService
+rbc:hasSetIlluminanceLevelService rdf:type owl:ObjectProperty ;
+                                  rdfs:domain rbc:Streetlight ;
+                                  rdfs:range rbc:setIlluminanceLevel .
+
+
+###  http://rbccps.org/schemas/streetlight#hasSetPowerStateService
+rbc:hasSetPowerStateService rdf:type owl:ObjectProperty ;
+                            owl:equivalentProperty onem2m:hasService ;
+                            rdfs:domain rbc:Streetlight ;
+                            rdfs:range rbc:setPowerState .
+
+
+###  http://rbccps.org/schemas/streetlight#hascaseTemperatureSensing
+rbc:hascaseTemperatureSensing rdf:type owl:ObjectProperty ;
+                              owl:equivalentProperty onem2m:hasFunctionality ;
+                              rdfs:domain rbc:Streetlight ;
+                              rdfs:range rbc:caseTemperatureSensing .
+
+
+###  http://rbccps.org/schemas/streetlight#hasenergyConsumedSensing
+rbc:hasenergyConsumedSensing rdf:type owl:ObjectProperty ;
+                             owl:equivalentProperty onem2m:hasFunctionality ;
+                             rdfs:domain rbc:Streetlight ;
+                             rdfs:range rbc:energyConsumedSensing .
+
+
+###  http://rbccps.org/schemas/streetlight#hasilluminanceSensing
+rbc:hasilluminanceSensing rdf:type owl:ObjectProperty ;
+                          owl:equivalentProperty onem2m:hasFunctionality ;
+                          rdfs:domain rbc:Streetlight ;
+                          rdfs:range rbc:illuminanceSensing .
+
+
+###  http://rbccps.org/schemas/streetlight#hassetIlluminanceLevelOperation
+rbc:hassetIlluminanceLevelOperation rdf:type owl:ObjectProperty ;
+                                    owl:equivalentProperty onem2m:hasOperation ;
+                                    rdfs:domain rbc:setIlluminanceLevel ;
+                                    rdfs:range rbc:setIlluminanceLevelOperation .
+
+
+###  http://rbccps.org/schemas/streetlight#hassetPowerStateOperation
+rbc:hassetPowerStateOperation rdf:type owl:ObjectProperty ;
+                              owl:equivalentProperty <http://www.wsmo.org/ns/wsmo-lite#hasOperation> ;
+                              rdfs:domain rbc:setPowerState ;
+                              rdfs:range rbc:setPowerStateOperation .
+
+
+###  http://rbccps.org/schemas/streetlight#hassetPowerStateOperationInput
+rbc:hassetPowerStateOperationInput rdf:type owl:ObjectProperty ;
+                                   owl:equivalentProperty onem2m:hasInput ;
+                                   rdfs:domain rbc:setPowerStateOperation ;
+                                   rdfs:range rbc:setPowerStateOperationInput .
+
+
+###  http://rbccps.org/schemas/streetlight#illuminanceSensingRefersTo
+rbc:illuminanceSensingRefersTo rdf:type owl:ObjectProperty ;
+                               owl:equivalentProperty onem2m:refersTo ;
+                               rdfs:domain rbc:illuminanceSensing ;
+                               rdfs:range rbc:illuminanceAspect .
+
+
+###  http://rbccps.org/schemas/streetlight#illuminanceUnits
+rbc:illuminanceUnits rdf:type owl:ObjectProperty ;
+                     rdfs:domain rbc:illuminanceAspect ;
+                     rdfs:range muo:UnitOfMeasurement .
+
+
+###  http://www.onem2m.org/ontology/Base_Ontology/base_ontology#hasFunctionality
+
+###  http://www.onem2m.org/ontology/Base_Ontology/base_ontology#hasInput
+
+###  http://www.onem2m.org/ontology/Base_Ontology/base_ontology#hasOperation
+
+###  http://www.onem2m.org/ontology/Base_Ontology/base_ontology#hasService
+
+###  http://www.onem2m.org/ontology/Base_Ontology/base_ontology#refersTo
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasInputMessage
+<http://www.wsmo.org/ns/wsmo-lite#hasInputMessage> rdf:type owl:ObjectProperty ;
+                                                   rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                                   rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Message> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasOperation
+<http://www.wsmo.org/ns/wsmo-lite#hasOperation> rdf:type owl:ObjectProperty ;
+                                                rdfs:subPropertyOf onem2m:hasOperation ;
+                                                rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Service> ;
+                                                rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Operation> .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#hasOutputMessage
+<http://www.wsmo.org/ns/wsmo-lite#hasOutputMessage> rdf:type owl:ObjectProperty ;
+                                                    rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                                    rdfs:range <http://www.wsmo.org/ns/wsmo-lite#Message> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://rbccps.org/schemas/streetlight#DataAccessEndPoint
+rbc:DataAccessEndPoint rdf:type owl:DatatypeProperty ;
+                       owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasAddress> ;
+                       rdfs:domain rbc:DataAccessOperation ;
+                       rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://rbccps.org/schemas/streetlight#DataAccessMessage
+rbc:DataAccessMessage rdf:type owl:DatatypeProperty ;
+                      owl:equivalentProperty rbc:MessageBody ;
+                      rdfs:domain rbc:DataAccessOperationInput ;
+                      rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#DataAccessMethod
+rbc:DataAccessMethod rdf:type owl:DatatypeProperty ;
+                     owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasMethod> ;
+                     rdfs:domain rbc:DataAccessOperation ;
+                     rdfs:range rbc:RESTMethod .
+
+
+###  http://rbccps.org/schemas/streetlight#DataPublishEndPoint
+rbc:DataPublishEndPoint rdf:type owl:DatatypeProperty ;
+                        owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasAddress> ;
+                        rdfs:domain rbc:DataPublishOperation ;
+                        rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://rbccps.org/schemas/streetlight#IlluminanceLevel
+rbc:IlluminanceLevel rdf:type owl:DatatypeProperty ;
+                     rdfs:domain rbc:IlluminanceLevelAspect ;
+                     rdfs:range [ rdf:type rdfs:Datatype ;
+                                  owl:onDatatype xsd:integer ;
+                                  owl:withRestrictions ( [ xsd:minExclusive 0
+                                                         ]
+                                                         [ xsd:maxInclusive 10
+                                                         ]
+                                                       )
+                                ] .
+
+
+###  http://rbccps.org/schemas/streetlight#MessageBody
+rbc:MessageBody rdf:type owl:DatatypeProperty ;
+                owl:equivalentProperty rbc:setIlluminanceLevelMessage ,
+                                       rbc:setPowerStateMessage ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( onem2m:InputDataPoint
+                                            onem2m:OperationInput
+                                            <http://www.wsmo.org/ns/wsmo-lite#Message>
+                                          )
+                            ] ;
+                rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#MessageHeader
+rbc:MessageHeader rdf:type owl:DatatypeProperty ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( onem2m:InputDataPoint
+                                              onem2m:OperationInput
+                                              <http://www.wsmo.org/ns/wsmo-lite#Message>
+                                            )
+                              ] ;
+                  rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#PowerState
+rbc:PowerState rdf:type owl:DatatypeProperty ;
+               rdfs:domain rbc:PowerStateAspect ;
+               rdfs:range rbc:StreetLightPowerStateEnum .
+
+
+###  http://rbccps.org/schemas/streetlight#address
+rbc:address rdf:type owl:DatatypeProperty ;
+            rdfs:domain rbc:Streetlight ;
+            rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#caseTemperature
+rbc:caseTemperature rdf:type owl:DatatypeProperty ;
+                    rdfs:domain rbc:caseTemperatureAspect ;
+                    rdfs:range xsd:float .
+
+
+###  http://rbccps.org/schemas/streetlight#energyConsumed
+rbc:energyConsumed rdf:type owl:DatatypeProperty ;
+                   rdfs:domain rbc:energyConsumedAspect ;
+                   rdfs:range xsd:decimal .
+
+
+###  http://rbccps.org/schemas/streetlight#getPowerStateEndPoint
+rbc:getPowerStateEndPoint rdf:type owl:DatatypeProperty ;
+                          owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasAddress> ;
+                          rdfs:domain rbc:getPowerStateOperation ;
+                          rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://rbccps.org/schemas/streetlight#getPowerStateMethod
+rbc:getPowerStateMethod rdf:type owl:DatatypeProperty ;
+                        owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasMethod> ;
+                        rdfs:domain rbc:getPowerStateOperation ;
+                        rdfs:range rbc:RESTMethod .
+
+
+###  http://rbccps.org/schemas/streetlight#id
+rbc:id rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdfs:domain rbc:Streetlight ;
+       rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#illuminance
+rbc:illuminance rdf:type owl:DatatypeProperty ;
+                rdfs:domain rbc:illuminanceAspect ;
+                rdfs:range xsd:decimal .
+
+
+###  http://rbccps.org/schemas/streetlight#location
+rbc:location rdf:type owl:DatatypeProperty ;
+             owl:equivalentProperty wgs84_pos:lat_long ;
+             rdfs:domain rbc:Streetlight ;
+             rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#setIlluminanceLevelEndPoint
+rbc:setIlluminanceLevelEndPoint rdf:type owl:DatatypeProperty ;
+                                owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasAddress> ;
+                                rdfs:domain rbc:setIlluminanceLevelOperation ;
+                                rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://rbccps.org/schemas/streetlight#setIlluminanceLevelMessage
+rbc:setIlluminanceLevelMessage rdf:type owl:DatatypeProperty ;
+                               rdfs:domain rbc:setIlluminanceLevelOperationInput ;
+                               rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#setIlluminanceLevelMethod
+rbc:setIlluminanceLevelMethod rdf:type owl:DatatypeProperty ;
+                              owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasMethod> ;
+                              rdfs:domain rbc:setIlluminanceLevelOperation ;
+                              rdfs:range rbc:RESTMethod .
+
+
+###  http://rbccps.org/schemas/streetlight#setPowerStateEndPoint
+rbc:setPowerStateEndPoint rdf:type owl:DatatypeProperty ;
+                          owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasAddress> ;
+                          rdfs:domain rbc:setPowerStateOperation ;
+                          rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://rbccps.org/schemas/streetlight#setPowerStateMessage
+rbc:setPowerStateMessage rdf:type owl:DatatypeProperty ;
+                         rdfs:domain rbc:setPowerStateOperationInput ;
+                         rdfs:range xsd:string .
+
+
+###  http://rbccps.org/schemas/streetlight#setPowerStateMethod
+rbc:setPowerStateMethod rdf:type owl:DatatypeProperty ;
+                        owl:equivalentProperty <http://www.wsmo.org/ns/hrests#hasMethod> ;
+                        rdfs:domain rbc:setPowerStateOperation ;
+                        rdfs:range rbc:RESTMethod .
+
+
+###  http://rbccps.org/schemas/streetlight#type
+rbc:type rdf:type owl:DatatypeProperty ;
+         rdfs:domain rbc:Streetlight ;
+         rdfs:range xsd:string .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#lat_long
+wgs84_pos:lat_long rdfs:range xsd:string .
+
+
+###  http://www.wsmo.org/ns/hrests#hasAddress
+<http://www.wsmo.org/ns/hrests#hasAddress> rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                           rdfs:range <http://www.wsmo.org/ns/hrests#URITemplate> .
+
+
+###  http://www.wsmo.org/ns/hrests#hasMethod
+<http://www.wsmo.org/ns/hrests#hasMethod> rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain <http://www.wsmo.org/ns/wsmo-lite#Operation> ;
+                                          rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://rbccps.org/schemas/streetlight#DataAccess
+rbc:DataAccess rdf:type owl:Class ;
+               rdfs:subClassOf onem2m:Service ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty onem2m:hasOperation ;
+                                 owl:allValuesFrom rbc:DataAccessOperation
+                               ] .
+
+
+###  http://rbccps.org/schemas/streetlight#DataAccessOperation
+rbc:DataAccessOperation rdf:type owl:Class ;
+                        rdfs:subClassOf <http://www.wsmo.org/ns/wsmo-lite#Operation> ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty onem2m:hasInput ;
+                                          owl:allValuesFrom rbc:DataAccessOperationInput
+                                        ] .
+
+
+###  http://rbccps.org/schemas/streetlight#DataAccessOperationInput
+rbc:DataAccessOperationInput rdf:type owl:Class ;
+                             rdfs:subClassOf onem2m:OperationInput .
+
+
+###  http://rbccps.org/schemas/streetlight#DataPublish
+rbc:DataPublish rdf:type owl:Class ;
+                rdfs:subClassOf onem2m:Service .
+
+
+###  http://rbccps.org/schemas/streetlight#DataPublishOperation
+rbc:DataPublishOperation rdf:type owl:Class ;
+                         rdfs:subClassOf <http://www.wsmo.org/ns/wsmo-lite#Operation> .
+
+
+###  http://rbccps.org/schemas/streetlight#DataSubscribe
+rbc:DataSubscribe rdf:type owl:Class ;
+                  rdfs:subClassOf onem2m:Service ;
+                  rdfs:comment "Data subscription service available for this device." ;
+                  rdfs:isDefinedBy "" .
+
+
+###  http://rbccps.org/schemas/streetlight#IlluminanceLevelAspect
+rbc:IlluminanceLevelAspect rdf:type owl:Class ;
+                           rdfs:subClassOf muo:QualityValue ,
+                                           onem2m:Aspect .
+
+
+###  http://rbccps.org/schemas/streetlight#IlluminanceLevelMonitoring
+rbc:IlluminanceLevelMonitoring rdf:type owl:Class ;
+                               rdfs:subClassOf onem2m:MeasuringFunctionality ;
+                               rdfs:comment "Provides functionality to monitor the current \"illuminance level\" of the streetlight. \"illuminance level\" is a configurable parameter and takes on values between 1-10." .
+
+
+###  http://rbccps.org/schemas/streetlight#PowerStateAspect
+rbc:PowerStateAspect rdf:type owl:Class ;
+                     rdfs:subClassOf muo:QualityValue ,
+                                     onem2m:Aspect .
+
+
+###  http://rbccps.org/schemas/streetlight#PowerStateMonitoring
+rbc:PowerStateMonitoring rdf:type owl:Class ;
+                         rdfs:subClassOf onem2m:MeasuringFunctionality ;
+                         rdfs:comment "Provides functionality to monitor the current \"Power State\" of the streetlight entity. \"Power State\" describes whether the street light is \"OFF\" or \"ON\"." .
+
+
+###  http://rbccps.org/schemas/streetlight#Streetlight
+rbc:Streetlight rdf:type owl:Class ;
+                rdfs:subClassOf onem2m:Device ,
+                                wgs84_pos:SpatialThing ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty onem2m:hasFunctionality ;
+                                  owl:someValuesFrom rbc:caseTemperatureSensing
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty onem2m:hasFunctionality ;
+                                  owl:someValuesFrom rbc:energyConsumedSensing
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty onem2m:hasFunctionality ;
+                                  owl:someValuesFrom rbc:illuminanceSensing
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty onem2m:hasService ;
+                                  owl:someValuesFrom rbc:DataAccess
+                                ] .
+
+
+###  http://rbccps.org/schemas/streetlight#caseTemperatureAspect
+rbc:caseTemperatureAspect rdf:type owl:Class ;
+                          rdfs:subClassOf muo:QualityValue ,
+                                          onem2m:Aspect ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rbc:AssocPhysicalQuality ;
+                                            owl:hasValue muoq:temperature
+                                          ] .
+
+
+###  http://rbccps.org/schemas/streetlight#caseTemperatureSensing
+rbc:caseTemperatureSensing rdf:type owl:Class ;
+                           rdfs:subClassOf onem2m:MeasuringFunctionality .
+
+
+###  http://rbccps.org/schemas/streetlight#energyConsumedAspect
+rbc:energyConsumedAspect rdf:type owl:Class ;
+                         rdfs:subClassOf muo:QualityValue ,
+                                         onem2m:Aspect ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty rbc:AssocPhysicalQuality ;
+                                           owl:hasValue muoq:energy
+                                         ] .
+
+
+###  http://rbccps.org/schemas/streetlight#energyConsumedSensing
+rbc:energyConsumedSensing rdf:type owl:Class ;
+                          rdfs:subClassOf onem2m:MeasuringFunctionality .
+
+
+###  http://rbccps.org/schemas/streetlight#getPowerState
+rbc:getPowerState rdf:type owl:Class ;
+                  rdfs:subClassOf onem2m:Service .
+
+
+###  http://rbccps.org/schemas/streetlight#getPowerStateOperation
+rbc:getPowerStateOperation rdf:type owl:Class ;
+                           rdfs:subClassOf <http://www.wsmo.org/ns/wsmo-lite#Operation> .
+
+
+###  http://rbccps.org/schemas/streetlight#getPowerStateOperationInput
+rbc:getPowerStateOperationInput rdf:type owl:Class ;
+                                rdfs:subClassOf onem2m:OperationInput .
+
+
+###  http://rbccps.org/schemas/streetlight#getPowerStateOperationOutput
+rbc:getPowerStateOperationOutput rdf:type owl:Class ;
+                                 rdfs:subClassOf onem2m:OperationOutput .
+
+
+###  http://rbccps.org/schemas/streetlight#illuminanceAspect
+rbc:illuminanceAspect rdf:type owl:Class ;
+                      rdfs:subClassOf muo:QualityValue ,
+                                      onem2m:Aspect ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty rbc:AssocPhysicalQuality ;
+                                        owl:hasValue muoq:luminous-intensity
+                                      ] .
+
+
+###  http://rbccps.org/schemas/streetlight#illuminanceSensing
+rbc:illuminanceSensing rdf:type owl:Class ;
+                       rdfs:subClassOf onem2m:MeasuringFunctionality .
+
+
+###  http://rbccps.org/schemas/streetlight#setIlluminanceLevel
+rbc:setIlluminanceLevel rdf:type owl:Class ;
+                        rdfs:subClassOf onem2m:Service ;
+                        rdfs:comment "Sets the illuminance level of the streetlight equal to the target value. Illuminance level is a number between 1 to 10." .
+
+
+###  http://rbccps.org/schemas/streetlight#setIlluminanceLevelOperation
+rbc:setIlluminanceLevelOperation rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.wsmo.org/ns/wsmo-lite#Operation> .
+
+
+###  http://rbccps.org/schemas/streetlight#setIlluminanceLevelOperationInput
+rbc:setIlluminanceLevelOperationInput rdf:type owl:Class ;
+                                      rdfs:subClassOf onem2m:OperationInput .
+
+
+###  http://rbccps.org/schemas/streetlight#setPowerState
+rbc:setPowerState rdf:type owl:Class ;
+                  rdfs:subClassOf onem2m:Service .
+
+
+###  http://rbccps.org/schemas/streetlight#setPowerStateOperation
+rbc:setPowerStateOperation rdf:type owl:Class ;
+                           rdfs:subClassOf <http://www.wsmo.org/ns/wsmo-lite#Operation> .
+
+
+###  http://rbccps.org/schemas/streetlight#setPowerStateOperationInput
+rbc:setPowerStateOperationInput rdf:type owl:Class ;
+                                rdfs:subClassOf onem2m:OperationInput .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#Message
+<http://www.wsmo.org/ns/wsmo-lite#Message> rdf:type owl:Class .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#Operation
+<http://www.wsmo.org/ns/wsmo-lite#Operation> rdf:type owl:Class ;
+                                             rdfs:subClassOf onem2m:Operation .
+
+
+###  http://www.wsmo.org/ns/wsmo-lite#Service
+<http://www.wsmo.org/ns/wsmo-lite#Service> rdf:type owl:Class ;
+                                           rdfs:subClassOf onem2m:Service .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

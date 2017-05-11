@@ -1,0 +1,315 @@
+@prefix : <http://www.rbccps.org/smartcitytestbed/testbedcomponents/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix ns: <http://creativecommons.org/ns#> .
+@prefix muo: <http://purl.oclc.org/NET/muo/muo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rbc: <https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sco: <http://purl.org/ontology/sco#> .
+@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix iron: <http://purl.org/ontology/iron#> .
+@prefix muoq: <http://purl.oclc.org/NET/muo/ucum/physical-quality/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@base <https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#> .
+
+<https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#> rdf:type owl:Ontology ;
+                                                                                   owl:imports <http://purl.oclc.org/NET/ssnx/ssn> ,
+                                                                                               <http://www.w3.org/2003/01/geo/wgs84_pos> ,
+                                                                                               <http://purl.oclc.org/NET/muo/ucum/> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.oclc.org/NET/ssnx/ssn#observes
+ssn:observes rdfs:domain rbc:Streetlight ;
+             rdfs:range rbc:ObservationMetaData .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#hasID
+rbc:hasID rdf:type owl:DatatypeProperty ;
+          rdfs:domain rbc:Streetlight ;
+          rdfs:range xsd:string .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#hasSenMLtag
+rbc:hasSenMLtag rdf:type owl:DatatypeProperty ;
+                rdfs:domain rbc:ObservationMetaData ;
+                rdfs:range xsd:string .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#hasType
+rbc:hasType rdf:type owl:DatatypeProperty ;
+            rdfs:domain rbc:Streetlight .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#ObservationMetaData
+rbc:ObservationMetaData rdf:type owl:Class ;
+                        rdfs:subClassOf muo:QualityValue ,
+                                        ssn:Observation ,
+                                        ssn:Property .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Pole
+rbc:Pole rdf:type owl:Class ;
+         rdfs:subClassOf ssn:Platform .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight
+rbc:Streetlight rdf:type owl:Class ;
+                rdfs:subClassOf ssn:SensingDevice ,
+                                wgs84_pos:SpatialThing ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty ssn:observes ;
+                                  owl:someValuesFrom rbc:ObservationMetaData
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty ssn:onPlatform ;
+                                  owl:allValuesFrom rbc:Pole
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rbc:hasType ;
+                                  owl:hasValue "streetlight"
+                                ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight1
+rbc:Streetlight1 rdf:type owl:NamedIndividual ,
+                          rbc:Streetlight ;
+                 ssn:observes rbc:Streetlight_CurrOutput_MetaData ,
+                              rbc:Streetlight_LumOutput_MetaData ,
+                              rbc:Streetlight_TempOutput_MetaData ,
+                              rbc:Streetlight_VoltOutput_MetaData ;
+                 wgs84_pos:lat_long "13.014070 , 77.571282"^^xsd:string ;
+                 rbc:hasID "light1_cvraman_road"^^xsd:string .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight2
+rbc:Streetlight2 rdf:type owl:NamedIndividual ,
+                          rbc:Streetlight ;
+                 ssn:observes rbc:Streetlight_CurrOutput_MetaData ,
+                              rbc:Streetlight_LumOutput_MetaData ,
+                              rbc:Streetlight_TempOutput_MetaData ,
+                              rbc:Streetlight_VoltOutput_MetaData ;
+                 wgs84_pos:lat_long "13.014128 , 77.570434"^^xsd:string ;
+                 rbc:hasID "light2_cvraman_road"^^xsd:string .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight3
+rbc:Streetlight3 rdf:type owl:NamedIndividual ,
+                          rbc:Streetlight ;
+                 ssn:observes rbc:Streetlight_CurrOutput_MetaData ,
+                              rbc:Streetlight_LumOutput_MetaData ,
+                              rbc:Streetlight_TempOutput_MetaData ,
+                              rbc:Streetlight_VoltOutput_MetaData ;
+                 wgs84_pos:lat_long "13.014044 , 77.569522"^^xsd:string ;
+                 rbc:hasID "light3_cvraman_road"^^xsd:string .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight4
+rbc:Streetlight4 rdf:type owl:NamedIndividual ,
+                          rbc:Streetlight ;
+                 ssn:observes rbc:Streetlight_CurrOutput_MetaData ,
+                              rbc:Streetlight_LumOutput_MetaData ,
+                              rbc:Streetlight_TempOutput_MetaData ,
+                              rbc:Streetlight_VoltOutput_MetaData ;
+                 wgs84_pos:lat_long "13.015612 , 77.572821"^^xsd:string ;
+                 rbc:hasID "light1_new_bel_road"^^xsd:string .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight5
+rbc:Streetlight5 rdf:type owl:NamedIndividual ,
+                          rbc:Streetlight ;
+                 ssn:observes rbc:Streetlight_CurrOutput_MetaData ,
+                              rbc:Streetlight_LumOutput_MetaData ,
+                              rbc:Streetlight_TempOutput_MetaData ,
+                              rbc:Streetlight_VoltOutput_MetaData ;
+                 wgs84_pos:lat_long "13.017039 , 77.572693"^^xsd:string ;
+                 rbc:hasID "light2_new_bel_road"^^xsd:string .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight6
+rbc:Streetlight6 rdf:type owl:NamedIndividual ,
+                          rbc:Streetlight ;
+                 ssn:observes rbc:Streetlight_CurrOutput_MetaData ,
+                              rbc:Streetlight_LumOutput_MetaData ,
+                              rbc:Streetlight_TempOutput_MetaData ,
+                              rbc:Streetlight_VoltOutput_MetaData ;
+                 wgs84_pos:lat_long "13.027032 , 77.571738"^^xsd:string ;
+                 rbc:hasID "light3_new_bel_road"^^xsd:string .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight_CurrOutput_MetaData
+rbc:Streetlight_CurrOutput_MetaData rdf:type owl:NamedIndividual ,
+                                             rbc:ObservationMetaData ;
+                                    muo:measuredIn <http://purl.oclc.org/NET/muo/ucum/unit/electric-current/Ampere> ;
+                                    ssn:observedBy rbc:Streetlight_CurrSense ;
+                                    ssn:observedProperty muoq:electric-current ;
+                                    rbc:hasSenMLtag "current" .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight_CurrSense
+rbc:Streetlight_CurrSense rdf:type owl:NamedIndividual ,
+                                   ssn:SensingDevice ;
+                          ssn:observes muoq:electric-current .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight_LumOutput_MetaData
+rbc:Streetlight_LumOutput_MetaData rdf:type owl:NamedIndividual ,
+                                            rbc:ObservationMetaData ;
+                                   muo:measuredIn <http://purl.oclc.org/NET/muo/ucum/unit/illuminance/lux> ;
+                                   ssn:observedBy rbc:Streetlight_LumSense ;
+                                   ssn:observedProperty muoq:luminous-intensity ;
+                                   rbc:hasSenMLtag "luminosity" .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight_LumSense
+rbc:Streetlight_LumSense rdf:type owl:NamedIndividual ,
+                                  ssn:SensingDevice ;
+                         ssn:observes muoq:luminous-intensity .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight_TempOutput_MetaData
+rbc:Streetlight_TempOutput_MetaData rdf:type owl:NamedIndividual ,
+                                             rbc:ObservationMetaData ;
+                                    muo:measuredIn <http://purl.oclc.org/NET/muo/ucum/unit/temperature/degree-Celsius> ;
+                                    ssn:observedBy rbc:Streetlight_TempSense ;
+                                    ssn:observedProperty muoq:temperature ;
+                                    rbc:hasSenMLtag "temperature" .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight_TempSense
+rbc:Streetlight_TempSense rdf:type owl:NamedIndividual ,
+                                   ssn:SensingDevice ;
+                          ssn:observes muoq:temperature .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight_VoltOutput_MetaData
+rbc:Streetlight_VoltOutput_MetaData rdf:type owl:NamedIndividual ,
+                                             rbc:ObservationMetaData ;
+                                    muo:measuredIn <http://purl.oclc.org/NET/muo/ucum/unit/electric-potential/Volt> ;
+                                    ssn:observedBy rbc:Streetlight_VoltSense ;
+                                    ssn:observedProperty muoq:electric-potential ;
+                                    rbc:hasSenMLtag "voltage" .
+
+
+###  https://drive.google.com/drive/folders/0B__l6or2n6chbXp5SzhVd1ZwbG8/components#Streetlight_VoltSense
+rbc:Streetlight_VoltSense rdf:type owl:NamedIndividual ,
+                                   ssn:SensingDevice ;
+                          ssn:observes muoq:electric-potential .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+wgs84_pos: dc:date "$Date: 2009/04/20 15:00:30 $" ;
+           rdfs:label "geo" ;
+           dc:description """A vocabulary for representing latitude, longitude and 
+ altitude information in the WGS84 geodetic reference datum. 
+ Version $Id: wgs84_pos.rdf,v 1.22 2009/04/20 15:00:30 timbl Exp $. See http://www.w3.org/2003/01/geo/ for more details.""" ;
+           rdfs:comment """
+Recent changes to this namespace:
+$Log: wgs84_pos.rdf,v $
+Revision 1.22  2009/04/20 15:00:30  timbl
+Remove the time bits which have been deal with elsewhere eg in iCal.
+
+Revision 1.21  2009/04/20 12:52:47  timbl
+try again
+
+Revision 1.20  2009/04/20 12:42:11  timbl
+Add Event (edited ages ago and never checked in), and location (following discussion http://chatlogs.planetrdf.com/swig/2009-04-20#T12-36-09)
+
+Revision 1.19  2009/04/20 12:36:31  timbl
+Add Event (edited ages ago and never checked in), and location (following discussion http://chatlogs.planetrdf.com/swig/2009-04-20#T12-36-09)
+
+Revision 1.18  2006/02/01 22:01:04  danbri
+Clarified that lat and long are decimal degrees, and that alt is decimal metres about local reference ellipsoid
+
+Revision 1.17  2004/02/06 17:38:12  danbri
+Fixed a bad commit screwup
+
+Revision 1.15  2003/04/19 11:24:08  danbri
+Fixed the typo even more.
+
+Revision 1.14  2003/04/19 11:16:56  danbri
+fixed a typo
+
+Revision 1.13  2003/02/19 22:27:27  connolly
+relaxed domain constraints on lat/long/alt from Point to SpatialThing
+
+Revision 1.12  2003/01/12 01:41:41  danbri
+Trying local copy of XSLT doc.
+
+Revision 1.11  2003/01/12 01:20:18  danbri
+added a link to morten's xslt rdfs viewer.
+
+Revision 1.10  2003/01/11 18:56:49  danbri
+Removed datatype range from lat and long properties, since they would
+have required each occurance of the property to mention the datatype.
+
+Revision 1.9  2003/01/11 11:41:31  danbri
+Another typo; repaired rdfs:Property to rdf:Property x4
+
+Revision 1.8  2003/01/11 11:05:02  danbri
+Added an rdfs:range for each lat/long/alt property,
+http://www.w3.org/2001/XMLSchema#float
+
+Revision 1.7  2003/01/10 20:25:16  danbri
+Longer rdfs:comment for Point, trying to be Earth-centric and neutral about
+coordinate system(s) at the same time. Feedback welcomed.
+
+Revision 1.6  2003/01/10 20:18:30  danbri
+Added CVS log comments into the RDF/XML as an rdfs:comment property of the
+vocabulary. Note that this is not common practice (but seems both harmless
+and potentially useful).
+
+
+revision 1.5
+date: 2003/01/10 20:14:31;  author: danbri;  state: Exp;  lines: +16 -5
+Updated schema:
+Added a dc:date, added url for more info. Changed the rdfs:label of the
+namespace from gp to geo. Added a class Point, set as the rdfs:domain of
+each property. Added XML comment on the lat_long property suggesting that
+we might not need it (based on #rdfig commentary from implementors).
+
+revision 1.4
+date: 2003/01/10 20:01:07;  author: danbri;  state: Exp;  lines: +6 -5
+Fixed typo; several rdfs:about attributes are now rdf:about. Thanks to MortenF in
+#rdfig for catching this error.
+
+revision 1.3
+date: 2003/01/10 11:59:03;  author: danbri;  state: Exp;  lines: +4 -3
+fixed buglet in vocab, added more wgs links
+
+revision 1.2
+date: 2003/01/10 11:01:11;  author: danbri;  state: Exp;  lines: +4 -4
+Removed alt from the as-a-flat-string property, and switched from
+space separated to comma separated.
+
+revision 1.1
+date: 2003/01/10 10:53:23;  author: danbri;  state: Exp;
+basic geo vocab
+
+""" ;
+           dc:title "WGS84 Geo Positioning: an RDF vocabulary" .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

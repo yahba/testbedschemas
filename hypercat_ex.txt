@@ -1,0 +1,354 @@
+{
+  "item-metadata": [
+    {
+      "rel": "urn:X-rbccps:rels:isContentType",
+      "val": "application/vnd.rbccps.catalogue+json"
+    },
+    {
+      "rel": "urn:X-rbccps:rels:hasDescription:en",
+      "val": "Catalogue test"
+    },
+    {
+      "rel": "urn:X-rbccps:rels:supportsSearch",
+      "val": "urn:X-rbccps:search:simple"
+    }
+  ],
+  "items": [
+  {
+    "href":"http://rbccps.org/streetlight/rbc_sl_123456",
+    "i-object-metadata": [
+       {
+        "rel":"rbccps:type"
+        "val": "streetlight"
+       },
+       {
+        "rel":"rbccps:id"
+        "val":"rbc_sl_123456"
+       },
+       {
+        "rel":"rbccps:address"
+        "val":"street_xyz, City_123, Zip_mno"
+       },
+       {
+        "rel":"rbccps:geoLocation"
+        "val":"(13.013900, 77.570400)"
+       },
+       {
+        "rel":"brokerBASE"
+        "val":"amqp://<user>:<password>@10.156.14.50:5672/rbccpsvhost/rbccps_iot"
+       },
+       {
+        "rel":"rbccps:caseTemperature"
+        "param-metadata": [
+           {
+              "rel":"onem2m:describes",
+              "val": muoq:temperature
+           },
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/caseTemperature/rbc_sl_123456"
+              "val":"readEPBASE/rbc_sl_123456/caseTemperature"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456"
+           },
+           {
+              "rel":"rbccps:units",
+              "val":"muo:degreeCelcius"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:energyConsumed"
+        "param-metadata": [
+           {
+              "rel":"onem2m:describes",
+              "val": muoq:energy
+           },
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456"
+           },
+           {
+              "rel":"rbccps:units",
+              "val":"muo:joules"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:illumincance"
+        "param-metadata": [
+           {
+              "rel":"onem2m:describes",
+              "val": muoq:luminous-intensity
+           },
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456"
+           },
+           {
+              "rel":"rbccps:units",
+              "val":"muo:lux"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:targetIlluminanceLevel"
+        "param-metadata": [
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:paramDataRange",
+              "val":"[>=0, <=10]"
+           },
+           {
+              "rel":"rbccps:paramDataType",
+              "val":"INTEGER"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456"
+           },
+           {
+              "rel":"rbccps:updateEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456.update.targetIlluminanceLevel"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:targetPowerState"
+        "param-metadata": [
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:paramDataRange",
+              "val":"["ON","OFF"]"
+           },
+           {
+              "rel":"rbccps:paramDataType",
+              "val":"BOOLEAN"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456"
+           },
+           {
+              "rel":"rbccps:updateEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456.update.targetPowerState"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:targetSamplingRate"
+        "param-metadata": [
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:paramDataRange",
+              "val":"[>0, <1]"
+           },
+           {
+              "rel":"rbccps:paramDataType",
+              "val":"DOUBLE"
+           },
+           {
+              "rel":"rbccps:units",
+              "val":"muo:Herz"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456"
+           },
+           {
+              "rel":"rbccps:updateEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_123456.update.targetSamplingRate"
+           }
+          ]
+       }
+    ]
+  },
+  {
+    "href":"http://rbccps.org/streetlight/rbccps_sl_abcdef",
+    "i-object-metadata": [
+       {
+        "rel":"rbccps:type"
+        "val": "streetlight"
+       },
+       {
+        "rel":"rbccps:id"
+        "val":"rbc_sl_abcdef"
+       },
+       {
+        "rel":"rbccps:address"
+        "val":"street_xyz, City_123, Zip_mno"
+       },
+       {
+        "rel":"rbccps:geoLocation"
+        "val":"(13.013846, 77.570311)"
+       },
+       {
+        "rel":"brokerBASE"
+        "val":"amqp://<user>:<password>@10.156.14.50:5672/rbccpsvhost/rbccps_iot"
+       },
+       {
+        "rel":"rbccps:caseTemperature"
+        "param-metadata": [
+           {
+              "rel":"onem2m:describes",
+              "val": muoq:temperature
+           },
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/caseTemperature/rbc_sl_abcdef"
+              "val":"readEPBASE/rbc_sl_abcdef/caseTemperature"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef"
+           },
+           {
+              "rel":"rbccps:units",
+              "val":"muo:degreeCelcius"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:energyConsumed"
+        "param-metadata": [
+           {
+              "rel":"onem2m:describes",
+              "val": muoq:energy
+           },
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef"
+           },
+           {
+              "rel":"rbccps:units",
+              "val":"muo:joules"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:illumincance"
+        "param-metadata": [
+           {
+              "rel":"onem2m:describes",
+              "val": muoq:luminous-intensity
+           },
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef"
+           },
+           {
+              "rel":"rbccps:units",
+              "val":"muo:lux"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:targetIlluminanceLevel"
+        "param-metadata": [
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:paramDataRange",
+              "val":"[>=0, <=10]"
+           },
+           {
+              "rel":"rbccps:paramDataType",
+              "val":"INTEGER"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef"
+           },
+           {
+              "rel":"rbccps:updateEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef.update.targetIlluminanceLevel"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:targetPowerState"
+        "param-metadata": [
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:paramDataRange",
+              "val":"["ON","OFF"]"
+           },
+           {
+              "rel":"rbccps:paramDataType",
+              "val":"BOOLEAN"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef"
+           },
+           {
+              "rel":"rbccps:updateEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef.update.targetPowerState"
+           }
+          ]
+       },
+       {
+        "rel":"rbccps:targetSamplingRate"
+        "param-metadata": [
+           {
+              "rel":"rbccps:databaseEndPoint",
+              "val":"http://10.156.14.201:8322/druid/v2?pretty"
+           },
+           {
+              "rel":"rbccps:paramDataRange",
+              "val":"[>0, <1]"
+           },
+           {
+              "rel":"rbccps:paramDataType",
+              "val":"DOUBLE"
+           },
+           {
+              "rel":"rbccps:units",
+              "val":"muo:Herz"
+           },
+           {
+              "rel":"rbccps:subscriptionEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef"
+           },
+           {
+              "rel":"rbccps:updateEndPoint",
+              "val":"brokerBASE/rbccps.rbc_sl_abcdef.update.targetSamplingRate"
+           }
+          ]
+       }
+    ]
+  }
+ ]
+}

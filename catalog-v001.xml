@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="http://www.onem2m.org/ontology/Base_Ontology/base_ontology-v0_9_0" uri="oneM2M_Base_Ontology-V_2_0_0.owl"/>
+    <uri id="Imports Wizard Entry" name="http://iserve.kmi.open.ac.uk/ns/hrests" uri="hrests-2013-10-03.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://data.qudt.org/qudt/owl/1.0.0/quantity.owl" uri="http://www.qudt.org/qudt/owl/1.0.0/quantity.owl"/>
+    <uri id="Imports Wizard Entry" name="http://purl.oclc.org/NET/muo/ucum/" uri="http://idi.fundacionctic.org/muo/ucum-instances.owl"/>
+    <uri id="Imports Wizard Entry" name="http://www.w3.org/2003/01/geo/wgs84_pos" uri="geo_ws84.owl"/>
+    <uri id="Imports Wizard Entry" name="http://purl.oclc.org/NET/muo/muo#" uri="http://idi.fundacionctic.org/muo/muo-vocab.owl"/>
+    <uri id="Imports Wizard Entry" name="http://purl.oclc.org/NET/muo/ucum/" uri="http://purl.oclc.org/NET/muo/ucum/physical-quality"/>
+</catalog>
